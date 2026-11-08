@@ -1,499 +1,142 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora Rosa 🌸</title>
 
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;padding:25px 15px;
- font-family:Arial,sans-serif;
- background:linear-gradient(135deg,#fff5f9,#f8dce9);
- color:#583b4a;
-}
-main{
- max-width:780px;margin:25px auto;
- background:white;padding:28px;
- border-radius:22px;
- box-shadow:0 8px 30px #bd79952b;
- border:1px solid #f4d2e1;
-}
-header{text-align:center;margin-bottom:25px}
-h1{color:#c65e8b;margin-bottom:8px}
-header p{color:#927484}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:25px}
-button{
- border:0;border-radius:10px;padding:13px;
- cursor:pointer;font-weight:bold;
-}
-.tabs button{background:#fce8f1;color:#ad5077}
-.tabs button.active,.calculate{
- background:#d66e9a;color:white
-}
-h2{color:#bd5c86;font-size:20px}
-label{display:block;font-weight:bold;font-size:13px;margin:13px 0 6px}
-input,select{
- width:100%;padding:12px;border:1px solid #edc9d9;
- border-radius:9px;background:#fffafd;color:#583b4a;
- font-size:15px;
-}
-input:focus,select:focus{outline:2px solid #efb8d0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.panel{display:none}
-.panel.active{display:block}
-.calculate{width:100%;margin-top:20px}
-.secondary{background:#fce8f1;color:#ad5077;margin-top:12px}
-.result{
- display:none;background:#fff2f7;border:1px solid #edc9d9;
- padding:18px;border-radius:12px;margin-top:20px;
- white-space:pre-line;line-height:1.7;overflow-wrap:anywhere;
-}
-.result strong{font-size:27px;color:#bd5080}
-.magnitude{
- padding:15px;background:#fff7fa;
- border:1px solid #f0d5e1;border-radius:12px;
- margin-top:15px;
-}
-.magnitude h3{font-size:15px;color:#bd5c86}
-.remove{background:#fce8f1;color:#ad5077;margin-top:10px}
-.hint{color:#927484;font-size:14px;line-height:1.5}
-footer{text-align:center;font-size:12px;color:#a17f90;margin-top:25px}
-@media(max-width:500px){
- .grid{grid-template-columns:1fr}
- main{padding:19px}
- .tabs{gap:5px}
- .tabs button{font-size:11px;padding:12px 4px}
-}
-</style>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Regra de Três</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #ffe6f0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background: #ff80ab;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff4f91;
+        }
+
+        h2 {
+            color: #d63384;
+        }
+
+        #resultado {
+            font-size: 20px;
+            color: #d63384;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-<main>
 
-<header>
- <div style="font-size:35px">🌸</div>
- <h1>Calculadora Rosa</h1>
- <p>Matemática de um jeito mais fácil ♡</p>
-</header>
+<div class="container">
 
-<div class="tabs">
- <button class="active" onclick="changeTab('simple',this)">Regra de 3 simples</button>
- <button onclick="changeTab('compound',this)">Regra de 3 composta</button>
- <button onclick="changeTab('trig',this)">Trigonometria</button>
+    <h2>Calculadora de Regra de Três</h2>
+
+    <h3>Regra de Três Simples</h3>
+
+    <input type="number" id="a" placeholder="Valor A">
+    <input type="number" id="b" placeholder="Valor B">
+    <input type="number" id="c" placeholder="Valor C">
+
+    <p>Resultado: X</p>
+
+    <button onclick="simples()">Calcular Simples</button>
+
+    <hr>
+
+    <h3>Regra de Três Composta</h3>
+
+    <p>Digite os valores conhecidos:</p>
+
+    <input type="number" id="v1" placeholder="Valor 1">
+    <input type="number" id="v2" placeholder="Valor 2">
+    <input type="number" id="v3" placeholder="Valor 3">
+    <input type="number" id="v4" placeholder="Valor 4">
+    <input type="number" id="v5" placeholder="Valor 5">
+
+    <button onclick="composta()">Calcular Composta</button>
+
+    <p id="resultado"></p>
+
+    <button onclick="limpar()">Limpar</button>
+
 </div>
-
-<!-- REGRA DE TRÊS SIMPLES -->
-
-<section id="simple" class="panel active">
-<h2>Regra de três simples</h2>
-<p class="hint">Insira os três valores conhecidos para descobrir o X.</p>
-
-<div class="grid">
- <div>
-  <label>Valor A</label>
-  <input type="number" id="a" placeholder="Ex: 4">
- </div>
- <div>
-  <label>Valor B</label>
-  <input type="number" id="b" placeholder="Ex: 12">
- </div>
- <div>
-  <label>Valor C</label>
-  <input type="number" id="c" placeholder="Ex: 6">
- </div>
- <div>
-  <label>Proporcionalidade</label>
-  <select id="type">
-   <option value="direct">Direta</option>
-   <option value="inverse">Inversa</option>
-  </select>
- </div>
-</div>
-
-<button class="calculate" onclick="simple()">CALCULAR X</button>
-<button class="secondary" onclick="clearSimple()">LIMPAR</button>
-<div id="simpleResult" class="result"></div>
-</section>
-
-<!-- REGRA DE TRÊS COMPOSTA -->
-
-<section id="compound" class="panel">
-<h2>Regra de três composta</h2>
-<p class="hint">Adicione as grandezas e indique se cada uma é direta ou inversa em relação ao resultado.</p>
-
-<label>Valor inicial de X</label>
-<input type="number" id="base" placeholder="Ex: 6">
-
-<label>Unidade do resultado</label>
-<input id="unit" placeholder="Ex: dias">
-
-<div id="magnitudes"></div>
-
-<button class="secondary" onclick="addMagnitude()">+ ADICIONAR GRANDEZA</button>
-<button class="calculate" onclick="compound()">CALCULAR X</button>
-<button class="secondary" onclick="clearCompound()">LIMPAR</button>
-
-<div id="compoundResult" class="result"></div>
-</section>
-
-<!-- TRIGONOMETRIA -->
-
-<section id="trig" class="panel">
-<h2>Calculadora de trigonometria</h2>
-<p class="hint">Calcule seno, cosseno, tangente e suas funções inversas.</p>
-
-<label>Tipo de cálculo</label>
-<select id="trigMode" onchange="updateTrigMode()">
- <option value="normal">Calcular razão trigonométrica</option>
- <option value="inverse">Descobrir o ângulo</option>
-</select>
-
-<label>Operação</label>
-<select id="trigOperation">
- <option value="sin">Seno (sen)</option>
- <option value="cos">Cosseno (cos)</option>
- <option value="tan">Tangente (tg)</option>
-</select>
-
-<div id="angleFields">
- <label>Ângulo</label>
- <input type="number" id="angle" placeholder="Ex: 30">
- <label>Unidade do ângulo</label>
- <select id="angleUnit">
-  <option value="deg">Graus (°)</option>
-  <option value="rad">Radianos</option>
- </select>
-</div>
-
-<div id="ratioFields" style="display:none">
- <label>Valor da razão trigonométrica</label>
- <input type="number" id="ratio" step="any" placeholder="Ex: 0.5">
-</div>
-
-<button class="calculate" onclick="trigonometry()">CALCULAR</button>
-<button class="secondary" onclick="clearTrig()">LIMPAR</button>
-
-<div id="trigResult" class="result"></div>
-
-<div style="margin-top:25px;padding:15px;background:#fff7fa;border-radius:12px">
- <h3 style="color:#bd5c86">Fórmulas trigonométricas</h3>
- <p><b>Seno:</b> sen = cateto oposto ÷ hipotenusa</p>
- <p><b>Cosseno:</b> cos = cateto adjacente ÷ hipotenusa</p>
- <p><b>Tangente:</b> tg = cateto oposto ÷ cateto adjacente</p>
- <p><b>Conversão:</b> radianos = graus × π ÷ 180</p>
-</div>
-
-</section>
-
-<footer>Calculadora Rosa ♡ Feita para estudar 🌷</footer>
-</main>
 
 <script>
 
-// NAVEGAÇÃO
+function simples() {
 
-function changeTab(id,button){
- document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
- document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- button.classList.add('active');
+    let a = Number(document.getElementById("a").value);
+    let b = Number(document.getElementById("b").value);
+    let c = Number(document.getElementById("c").value);
+
+    if (a === 0 || !a || !b || !c) {
+        alert("Preencha os valores corretamente!");
+        return;
+    }
+
+    let x = (b * c) / a;
+
+    document.getElementById("resultado").innerHTML =
+        "Resultado: " + x;
 }
 
-// FORMATAÇÃO
+function composta() {
 
-function format(n){
- return new Intl.NumberFormat('pt-BR',{maximumFractionDigits:8}).format(n);
+    let v1 = Number(document.getElementById("v1").value);
+    let v2 = Number(document.getElementById("v2").value);
+    let v3 = Number(document.getElementById("v3").value);
+    let v4 = Number(document.getElementById("v4").value);
+    let v5 = Number(document.getElementById("v5").value);
+
+    if (!v1 || !v2 || !v3 || !v4 || !v5) {
+        alert("Preencha todos os valores!");
+        return;
+    }
+
+    let x = (v2 * v4 * v5) / (v1 * v3);
+
+    document.getElementById("resultado").innerHTML =
+        "Resultado: " + x;
 }
 
-// REGRA DE TRÊS SIMPLES
+function limpar() {
 
-function simple(){
- let a=Number(document.getElementById('a').value);
- let b=Number(document.getElementById('b').value);
- let c=Number(document.getElementById('c').value);
- let type=document.getElementById('type').value;
- let result=document.getElementById('simpleResult');
+    document.querySelectorAll("input").forEach(campo => {
+        campo.value = "";
+    });
 
- if(!['a','b','c'].every(id=>document.getElementById(id).value.trim()!=='')){
-  result.style.display='block';
-  result.innerHTML='Preencha todos os campos!';
-  return;
- }
-
- if(a===0 || (type==='inverse' && c===0)){
-  result.style.display='block';
-  result.innerHTML='Não é possível dividir por zero.';
-  return;
- }
-
- let x,formula;
-
- if(type==='direct'){
-  x=(b*c)/a;
-  formula=`X = (${format(b)} × ${format(c)}) ÷ ${format(a)}`;
- }else{
-  x=(a*b)/c;
-  formula=`X = (${format(a)} × ${format(b)}) ÷ ${format(c)}`;
- }
-
- result.style.display='block';
- result.innerHTML=`
- <h3>Resultado:</h3>
- <strong>X = ${format(x)}</strong>
- <p><b>Resolução:</b></p>
- ${formula}
- `;
+    document.getElementById("resultado").innerHTML = "";
 }
-
-function clearSimple(){
- ['a','b','c'].forEach(id=>document.getElementById(id).value='');
- document.getElementById('simpleResult').style.display='none';
- document.getElementById('type').value='direct';
-}
-
-// REGRA DE TRÊS COMPOSTA
-
-let count=0;
-
-function addMagnitude(){
- count++;
- let div=document.createElement('div');
- div.className='magnitude';
- div.innerHTML=`
- <h3>Grandeza ${count}</h3>
- <label>Nome da grandeza</label>
- <input class="name" placeholder="Ex: Trabalhadores">
- <div class="grid">
-  <div>
-   <label>Valor inicial</label>
-   <input class="first" type="number" placeholder="Ex: 4">
-  </div>
-  <div>
-   <label>Valor novo</label>
-   <input class="second" type="number" placeholder="Ex: 6">
-  </div>
- </div>
- <label>Proporcionalidade em relação a X</label>
- <select class="relation">
-  <option value="direct">Direta</option>
-  <option value="inverse">Inversa</option>
- </select>
- <button class="remove" onclick="this.parentElement.remove();renumber()">REMOVER</button>
- `;
- document.getElementById('magnitudes').appendChild(div);
-}
-
-function renumber(){
- document.querySelectorAll('.magnitude h3').forEach((h,i)=>{
-  h.textContent='Grandeza '+(i+1);
- });
- count=document.querySelectorAll('.magnitude').length;
-}
-
-function compound(){
- let baseInput=document.getElementById('base');
- let base=Number(baseInput.value);
- let rows=document.querySelectorAll('.magnitude');
- let result=document.getElementById('compoundResult');
-
- if(!baseInput.value || base===0 || rows.length===0){
-  result.style.display='block';
-  result.innerHTML='Informe o valor inicial de X e adicione as grandezas.';
-  return;
- }
-
- let x=base;
- let explanation=`Valor inicial de X = ${format(base)}\n\n`;
-
- for(let row of rows){
-  let firstInput=row.querySelector('.first');
-  let secondInput=row.querySelector('.second');
-  let first=Number(firstInput.value);
-  let second=Number(secondInput.value);
-  let name=row.querySelector('.name').value || 'Grandeza';
-  let relation=row.querySelector('.relation').value;
-
-  if(!firstInput.value || !secondInput.value || first===0 ||
-    (relation==='inverse' && second===0)){
-   result.style.display='block';
-   result.innerHTML=`Verifique os valores da grandeza: ${name}.`;
-   return;
-  }
-
-  let factor;
-
-  if(relation==='direct'){
-   factor=second/first;
-   explanation+=`${name}: ${format(second)} ÷ ${format(first)} (direta)\n`;
-  }else{
-   factor=first/second;
-   explanation+=`${name}: ${format(first)} ÷ ${format(second)} (inversa)\n`;
-  }
-
-  x*=factor;
- }
-
- if(!Number.isFinite(x)){
-  result.style.display='block';
-  result.innerHTML='Não foi possível calcular.';
-  return;
- }
-
- let unit=document.getElementById('unit').value;
- explanation+=`\nX = ${format(base)} × fatores de proporcionalidade\n`;
- explanation+=`Resultado: ${format(x)} ${unit}`;
-
- result.style.display='block';
- result.innerHTML=`
- <h3>Resultado:</h3>
- <strong>X = ${format(x)} ${unit}</strong>
- <p><b>Resolução passo a passo:</b></p>
- ${explanation}`;
-}
-
-function clearCompound(){
- document.getElementById('base').value='';
- document.getElementById('unit').value='';
- document.getElementById('magnitudes').innerHTML='';
- document.getElementById('compoundResult').style.display='none';
- count=0;
- addMagnitude();
- addMagnitude();
-}
-
-// TRIGONOMETRIA
-
-function updateTrigMode(){
- let inverse=document.getElementById('trigMode').value==='inverse';
- document.getElementById('angleFields').style.display=inverse?'none':'block';
- document.getElementById('ratioFields').style.display=inverse?'block':'none';
- document.getElementById('trigResult').style.display='none';
-}
-
-function trigonometry(){
- let mode=document.getElementById('trigMode').value;
- let operation=document.getElementById('trigOperation').value;
- let result=document.getElementById('trigResult');
-
- result.style.display='block';
-
- if(mode==='normal'){
-  let input=document.getElementById('angle');
-  if(input.value.trim()===''){
-   result.innerHTML='Digite um ângulo para continuar.';
-   return;
-  }
-
-  let angle=Number(input.value);
-  let unit=document.getElementById('angleUnit').value;
-
-  if(!Number.isFinite(angle)){
-   result.innerHTML='Digite um ângulo válido.';
-   return;
-  }
-
-  let rad=unit==='deg'?angle*Math.PI/180:angle;
-
-  let value,formula,name;
-
-  if(operation==='sin'){
-   value=Math.sin(rad);
-   formula=`sen(${format(angle)}${unit==='deg'?'°':' rad'})`;
-   name='Seno';
-  }
-  else if(operation==='cos'){
-   value=Math.cos(rad);
-   formula=`cos(${format(angle)}${unit==='deg'?'°':' rad'})`;
-   name='Cosseno';
-  }
-  else{
-   if(Math.abs(Math.cos(rad))<1e-12){
-    result.innerHTML='A tangente não está definida para esse ângulo.';
-    return;
-   }
-   value=Math.tan(rad);
-   formula=`tg(${format(angle)}${unit==='deg'?'°':' rad'})`;
-   name='Tangente';
-  }
-
-  result.innerHTML=`
-  <h3>${name}</h3>
-  <strong>${format(value)}</strong>
-  <p><b>Resolução:</b></p>
-  ${formula} = ${format(value)}
-  <p>O resultado está calculado em ${unit==='deg'?'graus':'radianos'}.</p>
-  `;
- }
- else{
-  let input=document.getElementById('ratio');
-  if(input.value.trim()===''){
-   result.innerHTML='Digite o valor da razão trigonométrica.';
-   return;
-  }
-
-  let value=Number(input.value);
-
-  if(!Number.isFinite(value)){
-   result.innerHTML='Digite um número válido.';
-   return;
-  }
-
-  let angle,formula,name;
-
-  if(operation==='sin'){
-   if(value < -1 || value > 1){
-    result.innerHTML='O seno precisa estar entre -1 e 1.';
-    return;
-   }
-   angle=Math.asin(value);
-   formula=`arcsen(${format(value)})`;
-   name='Arco seno';
-  }
-  else if(operation==='cos'){
-   if(value < -1 || value > 1){
-    result.innerHTML='O cosseno precisa estar entre -1 e 1.';
-    return;
-   }
-   angle=Math.acos(value);
-   formula=`arccos(${format(value)})`;
-   name='Arco cosseno';
-  }
-  else{
-   angle=Math.atan(value);
-   formula=`arctg(${format(value)})`;
-   name='Arco tangente';
-  }
-
-  let degrees=angle*180/Math.PI;
-
-  result.innerHTML=`
-  <h3>${name}</h3>
-  <strong>${format(degrees)}°</strong>
-  <p><b>Resolução:</b></p>
-  ${formula}
-  <p>Resultado em graus: ${format(degrees)}°</p>
-  <p>Resultado em radianos: ${format(angle)} rad</p>
-  `;
- }
-}
-
-function clearTrig(){
- document.getElementById('angle').value='';
- document.getElementById('ratio').value='';
- document.getElementById('trigResult').style.display='none';
- document.getElementById('trigMode').value='normal';
- document.getElementById('trigOperation').value='sin';
- document.getElementById('angleUnit').value='deg';
- updateTrigMode();
-}
-
-// INICIALIZAÇÃO
-
-addMagnitude();
-addMagnitude();
 
 </script>
+
 </body>
 </html>
