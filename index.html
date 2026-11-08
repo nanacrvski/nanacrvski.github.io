@@ -1,94 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Regra de Três</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #ffe6f0;
-            text-align: center;
-            padding: 20px;
-        }
+<title>Calculadora de Regra de Três</title>
 
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            max-width: 400px;
-            margin: auto;
-        }
+<style>
+body {
+    font-family: Arial;
+    background: #fff0f5;
+    color: #805568;
+    text-align: center;
+    padding: 20px;
+}
 
-        input {
-            width: 80%;
-            padding: 10px;
-            margin: 5px;
-        }
+.container {
+    background: white;
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px #eecbd8;
+}
 
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            background: #ff80ab;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+h1, h2 {
+    color: #d88ba9;
+}
 
-        button:hover {
-            background: #ff4f91;
-        }
+h3 {
+    color: #bd829b;
+}
 
-        h2 {
-            color: #d63384;
-        }
+input, select {
+    width: 85%;
+    padding: 12px;
+    margin: 6px;
+    border: 2px solid #f5d5e1;
+    border-radius: 12px;
+    background: #fff9fb;
+    color: #805568;
+}
 
-        #resultado {
-            font-size: 20px;
-            color: #d63384;
-            font-weight: bold;
-        }
-    </style>
+button {
+    padding: 12px 20px;
+    margin: 10px;
+    background: #f3c4d5;
+    color: #805568;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e9a9c1;
+}
+
+hr {
+    border: none;
+    border-top: 2px dashed #f2d5e0;
+    margin: 25px 0;
+}
+
+#resultado {
+    background: #fff0f5;
+    padding: 15px;
+    border-radius: 12px;
+    color: #c56f94;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+footer {
+    color: #bd91a4;
+    margin-top: 20px;
+    font-size: 12px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <h2>Calculadora de Regra de Três</h2>
+<h1>🌸 Calculadora de Regra de Três</h1>
+<p>Seus cálculos de um jeito mais fácil! ♡</p>
 
-    <h3>Regra de Três Simples</h3>
+<hr>
 
-    <input type="number" id="a" placeholder="Valor A">
-    <input type="number" id="b" placeholder="Valor B">
-    <input type="number" id="c" placeholder="Valor C">
+<h2>🌷 Regra de Três Simples</h2>
 
-    <p>Resultado: X</p>
+<input type="number" id="a" placeholder="Valor A">
+<input type="number" id="b" placeholder="Valor B">
+<input type="number" id="c" placeholder="Valor C">
 
-    <button onclick="simples()">Calcular Simples</button>
+<p>Escolha a proporcionalidade:</p>
 
-    <hr>
+<select id="tipoSimples">
+    <option value="direta">Diretamente proporcional</option>
+    <option value="inversa">Inversamente proporcional</option>
+</select>
 
-    <h3>Regra de Três Composta</h3>
+<button onclick="simples()">Calcular ♡</button>
 
-    <p>Digite os valores conhecidos:</p>
+<hr>
 
-    <input type="number" id="v1" placeholder="Valor 1">
-    <input type="number" id="v2" placeholder="Valor 2">
-    <input type="number" id="v3" placeholder="Valor 3">
-    <input type="number" id="v4" placeholder="Valor 4">
-    <input type="number" id="v5" placeholder="Valor 5">
+<h2>🌸 Regra de Três Composta</h2>
 
-    <button onclick="composta()">Calcular Composta</button>
+<p>Valor conhecido de X:</p>
+<input type="number" id="base" placeholder="Valor conhecido">
 
-    <p id="resultado"></p>
+<h3>Primeira grandeza</h3>
 
-    <button onclick="limpar()">Limpar</button>
+<input type="number" id="g1a" placeholder="Valor antigo">
+<input type="number" id="g1b" placeholder="Valor novo">
+
+<select id="tipo1">
+    <option value="direta">Diretamente proporcional</option>
+    <option value="inversa">Inversamente proporcional</option>
+</select>
+
+<h3>Segunda grandeza</h3>
+
+<input type="number" id="g2a" placeholder="Valor antigo">
+<input type="number" id="g2b" placeholder="Valor novo">
+
+<select id="tipo2">
+    <option value="direta">Diretamente proporcional</option>
+    <option value="inversa">Inversamente proporcional</option>
+</select>
+
+<button onclick="composta()">Calcular ♡</button>
+
+<p id="resultado"></p>
+
+<button onclick="limpar()">Limpar ✿</button>
+
+<footer>
+    Feito com carinho ♡ 🌷
+</footer>
 
 </div>
 
 <script>
+
+// REGRA DE TRÊS SIMPLES
 
 function simples() {
 
@@ -96,35 +152,88 @@ function simples() {
     let b = Number(document.getElementById("b").value);
     let c = Number(document.getElementById("c").value);
 
-    if (a === 0 || !a || !b || !c) {
+    let tipo = document.getElementById("tipoSimples").value;
+
+    if (!document.getElementById("a").value ||
+        !document.getElementById("b").value ||
+        !document.getElementById("c").value ||
+        a === 0) {
+
         alert("Preencha os valores corretamente!");
         return;
     }
 
-    let x = (b * c) / a;
+    let x;
 
-    document.getElementById("resultado").innerHTML =
-        "Resultado: " + x;
+    if (tipo === "direta") {
+        x = (b * c) / a;
+    } else {
+        x = (a * b) / c;
+    }
+
+    mostrarResultado(x);
 }
+
+
+// REGRA DE TRÊS COMPOSTA
 
 function composta() {
 
-    let v1 = Number(document.getElementById("v1").value);
-    let v2 = Number(document.getElementById("v2").value);
-    let v3 = Number(document.getElementById("v3").value);
-    let v4 = Number(document.getElementById("v4").value);
-    let v5 = Number(document.getElementById("v5").value);
+    let base = Number(document.getElementById("base").value);
 
-    if (!v1 || !v2 || !v3 || !v4 || !v5) {
-        alert("Preencha todos os valores!");
+    let g1a = Number(document.getElementById("g1a").value);
+    let g1b = Number(document.getElementById("g1b").value);
+
+    let g2a = Number(document.getElementById("g2a").value);
+    let g2b = Number(document.getElementById("g2b").value);
+
+    let tipo1 = document.getElementById("tipo1").value;
+    let tipo2 = document.getElementById("tipo2").value;
+
+    if (!document.getElementById("base").value ||
+        !document.getElementById("g1a").value ||
+        !document.getElementById("g1b").value ||
+        !document.getElementById("g2a").value ||
+        !document.getElementById("g2b").value ||
+        base === 0 || g1a === 0 || g2a === 0 ||
+        g1b === 0 || g2b === 0) {
+
+        alert("Preencha todos os valores corretamente!");
         return;
     }
 
-    let x = (v2 * v4 * v5) / (v1 * v3);
+    let fator1;
+    let fator2;
+
+    if (tipo1 === "direta") {
+        fator1 = g1b / g1a;
+    } else {
+        fator1 = g1a / g1b;
+    }
+
+    if (tipo2 === "direta") {
+        fator2 = g2b / g2a;
+    } else {
+        fator2 = g2a / g2b;
+    }
+
+    let x = base * fator1 * fator2;
+
+    mostrarResultado(x);
+}
+
+
+// MOSTRAR RESULTADO
+
+function mostrarResultado(x) {
 
     document.getElementById("resultado").innerHTML =
-        "Resultado: " + x;
+        "🌸 Resultado: " + Number(x.toFixed(6));
+
 }
+
+
+// LIMPAR CAMPOS
 
 function limpar() {
 
@@ -133,6 +242,11 @@ function limpar() {
     });
 
     document.getElementById("resultado").innerHTML = "";
+
+    document.getElementById("tipoSimples").value = "direta";
+    document.getElementById("tipo1").value = "direta";
+    document.getElementById("tipo2").value = "direta";
+
 }
 
 </script>
