@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Regra de Três</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #fff0f5;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.container {
+    background: white;
+    max-width: 450px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+h1 {
+    color: #d63384;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #e5a3c1;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    background: #e75480;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #c2185b;
+}
+
+#resultado {
+    color: #c2185b;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌸 Regra de Três</h1>
+
+<select id="tipo" onchange="atualizar()">
+    <option value="simples">Regra de Três Simples</option>
+    <option value="composta">Regra de Três Composta</option>
+</select>
+
+<div id="simples">
+    <input type="number" id="a" placeholder="Valor A">
+    <input type="number" id="b" placeholder="Valor B">
+    <input type="number" id="c" placeholder="Valor C">
+
+    <select id="relacao">
+        <option value="direta">Diretamente proporcional</option>
+        <option value="inversa">Inversamente proporcional</option>
+    </select>
+</div>
+
+<div id="composta" hidden>
+    <input type="number" id="x" placeholder="Valor inicial de X">
+
+    <input type="number" id="g1" placeholder="Grandeza 1 - valor inicial">
+    <input type="number" id="g2" placeholder="Grandeza 1 - valor final">
+
+    <select id="r1">
+        <option value="direta">Grandeza 1 - direta</option>
+        <option value="inversa">Grandeza 1 - inversa</option>
+    </select>
+
+    <input type="number" id="g3" placeholder="Grandeza 2 - valor inicial">
+    <input type="number" id="g4" placeholder="Grandeza 2 - valor final">
+
+    <select id="r2">
+        <option value="direta">Grandeza 2 - direta</option>
+        <option value="inversa">Grandeza 2 - inversa</option>
+    </select>
+</div>
+
+<button onclick="calcular()">Calcular</button>
+
+<div id="resultado"></div>
+
+</div>
+
+<script>
+
+function atualizar() {
+    let tipo = document.getElementById("tipo").value;
+
+    document.getElementById("simples").hidden = tipo !== "simples";
+    document.getElementById("composta").hidden = tipo !== "composta";
+
+    document.getElementById("resultado").innerHTML = "";
+}
+
+function calcular() {
+
+    let tipo = document.getElementById("tipo").value;
+    let resultado = 0;
+
+    if (tipo === "simples") {
+
+        let a = Number(document.getElementById("a").value);
+        let b = Number(document.getElementById("b").value);
+        let c = Number(document.getElementById("c").value);
+
+        let relacao = document.getElementById("relacao").value;
+
+        if (document.getElementById("a").value === "" ||
+            document.getElementById("b").value === "" ||
+            document.getElementById("c").value === "") {
+            alert("Preencha todos os valores!");
+            return;
+        }
+
+        if (relacao === "direta") {
+            if (a === 0) {
+                alert("O valor A não pode ser zero!");
+                return;
+            }
+            resultado = (b * c) / a;
+        } else {
+            if (b === 0) {
+                alert("O valor B não pode ser zero!");
+                return;
+            }
+            resultado = (a * c) / b;
+        }
+
+    } else {
+
+        let x = Number(document.getElementById("x").value);
+        let g1 = Number(document.getElementById("g1").value);
+        let g2 = Number(document.getElementById("g2").value);
+        let g3 = Number(document.getElementById("g3").value);
+        let g4 = Number(document.getElementById("g4").value);
+
+        let r1 = document.getElementById("r1").value;
+        let r2 = document.getElementById("r2").value;
+
+        let campos = ["x", "g1", "g2", "g3", "g4"];
+
+        if (campos.some(id => document.getElementById(id).value === "")) {
+            alert("Preencha todos os valores!");
+            return;
+        }
+
+        if (g1 === 0 || g3 === 0 || (r1 === "inversa" && g2 === 0) ||
+            (r2 === "inversa" && g4 === 0)) {
+            alert("Os valores utilizados como divisores não podem ser zero!");
+            return;
+        }
+
+        resultado = x;
+
+        resultado *= r1 === "direta" ? g2 / g1 : g1 / g2;
+        resultado *= r2 === "direta" ? g4 / g3 : g3 / g4;
+    }
+
+    document.getElementById("resultado").innerHTML =
+        "Resultado: X = " + resultado.toLocaleString("pt-BR", {
+            maximumFractionDigits: 4
+        });
+}
+
+</script>
+
+</body>
+</html>
