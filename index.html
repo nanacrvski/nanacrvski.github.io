@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -5,7 +6,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>🌸 Calculadora de regra de três - Trabalho matemática C</title>
+<title>🌸 Calculadora Sakura</title>
+
+<!-- PYTHON NO NAVEGADOR -->
+<link rel="stylesheet"
+href="https://pyscript.net/releases/2026.7.3/core.css">
+
+<script type="module"
+src="https://pyscript.net/releases/2026.7.3/core.js"></script>
 
 <style>
 
@@ -13,10 +21,12 @@
 
 body {
     font-family: Arial, sans-serif;
+
     background:
         radial-gradient(ellipse at 15% 20%, #ffffff 0%, transparent 35%),
         radial-gradient(ellipse at 85% 80%, #ffc9df 0%, transparent 40%),
         linear-gradient(135deg, #ffe5ef, #fff0f5, #fbd4e4);
+
     background-attachment: fixed;
     text-align: center;
     padding: 40px 15px;
@@ -64,7 +74,10 @@ body {
     animation-delay: 1.5s;
 }
 
+/* ANIMAÇÃO DAS FLORES */
+
 @keyframes flutuar {
+
     0%, 100% {
         transform: translateY(0px) rotate(-5deg);
     }
@@ -72,6 +85,7 @@ body {
     50% {
         transform: translateY(-15px) rotate(8deg);
     }
+
 }
 
 /* CARTÃO PRINCIPAL */
@@ -157,7 +171,7 @@ button:hover {
     box-shadow: 0 8px 15px rgba(194, 24, 91, 0.25);
 }
 
-/* ÁREA DE RESULTADO */
+/* RESULTADO */
 
 #resultado {
     color: #c2185b;
@@ -185,7 +199,7 @@ button:hover {
     margin-top: 22px;
 }
 
-/* CELULAR */
+/* RESPONSIVIDADE */
 
 @media (max-width: 500px) {
 
@@ -209,7 +223,7 @@ button:hover {
 
 <body>
 
-<!-- FLORES DECORATIVAS -->
+<!-- FLORES -->
 
 <div class="flower flower1">🌸</div>
 <div class="flower flower2">🌸</div>
@@ -217,268 +231,355 @@ button:hover {
 <div class="flower flower4">🌸</div>
 
 
-<!-- CALCULADORA -->
+<!-- CARTÃO DA CALCULADORA -->
 
 <div class="container">
 
-<h1>🌸 Regra de Três</h1>
+    <h1>🌸 Regra de Três</h1>
 
-<p class="subtitulo">
-    ✿ Sua calculadora matemática kawaii ✿
-</p>
+    <p class="subtitulo">
+        ✿ Sua calculadora matemática kawaii ✿
+    </p>
 
-<div class="decoracao">
-    ♡ ──────── ✿ ──────── ♡
-</div>
-
-<!-- ESCOLHA DO TIPO -->
-
-<select id="tipo" onchange="atualizar()">
-
-    <option value="simples">
-        Regra de Três Simples
-    </option>
-
-    <option value="composta">
-        Regra de Três Composta
-    </option>
-
-</select>
+    <div class="decoracao">
+        ♡ ──────── ✿ ──────── ♡
+    </div>
 
 
-<!-- REGRA DE TRÊS SIMPLES -->
+    <!-- ESCOLHA DO CÁLCULO -->
 
-<div id="simples">
+    <select id="tipo">
 
-    <input type="number" id="a"
-    placeholder="Valor A">
-
-    <input type="number" id="b"
-    placeholder="Valor B">
-
-    <input type="number" id="c"
-    placeholder="Valor C">
-
-    <select id="relacao">
-
-        <option value="direta">
-            Diretamente proporcional
+        <option value="simples">
+            Regra de Três Simples
         </option>
 
-        <option value="inversa">
-            Inversamente proporcional
+        <option value="composta">
+            Regra de Três Composta
         </option>
 
     </select>
 
+
+    <!-- REGRA DE TRÊS SIMPLES -->
+
+    <div id="simples">
+
+        <input type="number" id="a"
+        placeholder="Valor A">
+
+        <input type="number" id="b"
+        placeholder="Valor B">
+
+        <input type="number" id="c"
+        placeholder="Valor C">
+
+        <select id="relacao">
+
+            <option value="direta">
+                Diretamente proporcional
+            </option>
+
+            <option value="inversa">
+                Inversamente proporcional
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- REGRA DE TRÊS COMPOSTA -->
+
+    <div id="composta" hidden>
+
+        <input type="number" id="x"
+        placeholder="Valor inicial de X">
+
+        <input type="number" id="g1"
+        placeholder="Grandeza 1 - valor inicial">
+
+        <input type="number" id="g2"
+        placeholder="Grandeza 1 - valor final">
+
+        <select id="r1">
+
+            <option value="direta">
+                Grandeza 1 - direta
+            </option>
+
+            <option value="inversa">
+                Grandeza 1 - inversa
+            </option>
+
+        </select>
+
+        <input type="number" id="g3"
+        placeholder="Grandeza 2 - valor inicial">
+
+        <input type="number" id="g4"
+        placeholder="Grandeza 2 - valor final">
+
+        <select id="r2">
+
+            <option value="direta">
+                Grandeza 2 - direta
+            </option>
+
+            <option value="inversa">
+                Grandeza 2 - inversa
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- BOTÃO DE CALCULAR -->
+
+    <button id="calcular">
+        🌸 Calcular Resultado
+    </button>
+
+
+    <!-- RESULTADO -->
+
+    <div id="resultado"></div>
+
+    <div class="rodape">
+        Feito com carinho ♡ Bons estudos!
+    </div>
+
 </div>
 
 
-<!-- REGRA DE TRÊS COMPOSTA -->
+<!-- CÓDIGO PYTHON -->
 
-<div id="composta" hidden>
+<script type="py">
 
-    <input type="number" id="x"
-    placeholder="Valor inicial de X">
-
-    <input type="number" id="g1"
-    placeholder="Grandeza 1 - valor inicial">
-
-    <input type="number" id="g2"
-    placeholder="Grandeza 1 - valor final">
-
-    <select id="r1">
-
-        <option value="direta">
-            Grandeza 1 - direta
-        </option>
-
-        <option value="inversa">
-            Grandeza 1 - inversa
-        </option>
-
-    </select>
-
-    <input type="number" id="g3"
-    placeholder="Grandeza 2 - valor inicial">
-
-    <input type="number" id="g4"
-    placeholder="Grandeza 2 - valor final">
-
-    <select id="r2">
-
-        <option value="direta">
-            Grandeza 2 - direta
-        </option>
-
-        <option value="inversa">
-            Grandeza 2 - inversa
-        </option>
-
-    </select>
-
-</div>
+from pyscript import web, when
+import math
 
 
-<!-- BOTÃO -->
+# FORMATAR RESULTADO PARA O PADRÃO BRASILEIRO
 
-<button onclick="calcular()">
-    🌸 Calcular Resultado
-</button>
+def formatar_numero(numero):
 
+    texto = f"{numero:,.4f}"
 
-<!-- RESULTADO -->
+    texto = texto.rstrip("0").rstrip(".")
 
-<div id="resultado"></div>
+    texto = texto.replace(",", "X")
+    texto = texto.replace(".", ",")
+    texto = texto.replace("X", ".")
 
-<div class="rodape">
-    Feito com carinho ♡ Bons estudos!
-</div>
-
-</div>
+    return texto
 
 
-<!-- JAVASCRIPT -->
+# ATUALIZAR O TIPO DE CÁLCULO
 
-<script>
+@when("change", "#tipo")
+def atualizar(event):
 
-function atualizar() {
+    tipo = web.page["tipo"].value
 
-    let tipo = document.getElementById("tipo").value;
+    web.page["simples"].hidden = tipo != "simples"
 
-    document.getElementById("simples").hidden =
-        tipo !== "simples";
+    web.page["composta"].hidden = tipo != "composta"
 
-    document.getElementById("composta").hidden =
-        tipo !== "composta";
-
-    document.getElementById("resultado").innerHTML = "";
-
-}
+    web.page["resultado"].innerText = ""
 
 
-function calcular() {
+# CALCULAR A REGRA DE TRÊS
 
-    let tipo = document.getElementById("tipo").value;
+@when("click", "#calcular")
+def calcular(event):
 
-    let resultado = 0;
+    tipo = web.page["tipo"].value
+
+    resultado = 0
 
 
-    if (tipo === "simples") {
+    # REGRA DE TRÊS SIMPLES
 
-        let a = Number(document.getElementById("a").value);
+    if tipo == "simples":
 
-        let b = Number(document.getElementById("b").value);
+        campos = ["a", "b", "c"]
 
-        let c = Number(document.getElementById("c").value);
+        # VERIFICAR CAMPOS VAZIOS
 
-        let relacao = document.getElementById("relacao").value;
+        for campo in campos:
 
+            if web.page[campo].value == "":
+
+                web.page["resultado"].innerText = (
+                    "Preencha todos os valores!"
+                )
+
+                return
+
+
+        # RECEBER OS VALORES
+
+        a = float(web.page["a"].value)
+
+        b = float(web.page["b"].value)
+
+        c = float(web.page["c"].value)
+
+        relacao = web.page["relacao"].value
+
+
+        # VERIFICAR VALORES INVÁLIDOS
+
+        if not all(math.isfinite(v) for v in [a, b, c]):
+
+            web.page["resultado"].innerText = (
+                "Digite valores numéricos válidos!"
+            )
+
+            return
+
+
+        # DIRETAMENTE PROPORCIONAL
+
+        if relacao == "direta":
+
+            if a == 0:
+
+                web.page["resultado"].innerText = (
+                    "O valor A não pode ser zero!"
+                )
+
+                return
+
+            resultado = (b * c) / a
+
+
+        # INVERSAMENTE PROPORCIONAL
+
+        else:
+
+            if b == 0:
+
+                web.page["resultado"].innerText = (
+                    "O valor B não pode ser zero!"
+                )
+
+                return
+
+            resultado = (a * c) / b
+
+
+    # REGRA DE TRÊS COMPOSTA
+
+    else:
+
+        campos = ["x", "g1", "g2", "g3", "g4"]
+
+
+        # VERIFICAR CAMPOS VAZIOS
+
+        for campo in campos:
+
+            if web.page[campo].value == "":
+
+                web.page["resultado"].innerText = (
+                    "Preencha todos os valores!"
+                )
+
+                return
+
+
+        # RECEBER OS VALORES
+
+        x = float(web.page["x"].value)
+
+        g1 = float(web.page["g1"].value)
+
+        g2 = float(web.page["g2"].value)
+
+        g3 = float(web.page["g3"].value)
+
+        g4 = float(web.page["g4"].value)
+
+
+        r1 = web.page["r1"].value
+
+        r2 = web.page["r2"].value
+
+
+        # VERIFICAR VALORES INVÁLIDOS
+
+        valores = [x, g1, g2, g3, g4]
+
+        if not all(math.isfinite(v) for v in valores):
+
+            web.page["resultado"].innerText = (
+                "Digite valores numéricos válidos!"
+            )
+
+            return
+
+
+        # VERIFICAR DIVISÕES POR ZERO
 
         if (
-            document.getElementById("a").value === "" ||
-            document.getElementById("b").value === "" ||
-            document.getElementById("c").value === ""
-        ) {
+            g1 == 0
+            or g3 == 0
+            or (r1 == "inversa" and g2 == 0)
+            or (r2 == "inversa" and g4 == 0)
+        ):
 
-            alert("Preencha todos os valores!");
+            web.page["resultado"].innerText = (
+                "Os valores utilizados como divisores não podem ser zero!"
+            )
 
-            return;
-
-        }
-
-
-        if (relacao === "direta") {
-
-            if (a === 0) {
-
-                alert("O valor A não pode ser zero!");
-
-                return;
-
-            }
-
-            resultado = (b * c) / a;
-
-        } else {
-
-            if (b === 0) {
-
-                alert("O valor B não pode ser zero!");
-
-                return;
-
-            }
-
-            resultado = (a * c) / b;
-
-        }
+            return
 
 
-    } else {
+        # COMEÇAR COM O VALOR INICIAL DE X
 
-        let x = Number(document.getElementById("x").value);
-
-        let g1 = Number(document.getElementById("g1").value);
-
-        let g2 = Number(document.getElementById("g2").value);
-
-        let g3 = Number(document.getElementById("g3").value);
-
-        let g4 = Number(document.getElementById("g4").value);
+        resultado = x
 
 
-        let r1 = document.getElementById("r1").value;
+        # PRIMEIRA GRANDEZA
 
-        let r2 = document.getElementById("r2").value;
+        if r1 == "direta":
 
+            resultado *= g2 / g1
 
-        let campos = ["x", "g1", "g2", "g3", "g4"];
+        else:
 
-
-        if (campos.some(id =>
-            document.getElementById(id).value === ""
-        )) {
-
-            alert("Preencha todos os valores!");
-
-            return;
-
-        }
+            resultado *= g1 / g2
 
 
-        if (
-            g1 === 0 ||
-            g3 === 0 ||
-            (r1 === "inversa" && g2 === 0) ||
-            (r2 === "inversa" && g4 === 0)
-        ) {
+        # SEGUNDA GRANDEZA
 
-            alert("Os valores utilizados como divisores não podem ser zero!");
+        if r2 == "direta":
 
-            return;
+            resultado *= g4 / g3
 
-        }
+        else:
+
+            resultado *= g3 / g4
 
 
-        resultado = x;
+    # MOSTRAR O RESULTADO
 
-        resultado *= r1 === "direta" ? g2 / g1 : g1 / g2;
+    if not math.isfinite(resultado):
 
-        resultado *= r2 === "direta" ? g4 / g3 : g3 / g4;
+        web.page["resultado"].innerText = (
+            "O resultado não é um número válido!"
+        )
 
-    }
+        return
 
+    numero = formatar_numero(resultado)
 
-    document.getElementById("resultado").innerHTML =
-
-        "🌸 Resultado: X = " + resultado.toLocaleString("pt-BR", {
-
-            maximumFractionDigits: 4
-
-        });
-
-}
+    web.page["resultado"].innerText = (
+        "🌸 Resultado: X = " + numero
+    )
 
 </script>
 
