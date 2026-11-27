@@ -1,190 +1,487 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Regra de Três</title>
+
+<title>🌸 Calculadora Sakura</title>
 
 <style>
+
+/* FUNDO DO SITE */
+
 body {
     font-family: Arial, sans-serif;
-    background: #fff0f5;
+    background:
+        radial-gradient(ellipse at 15% 20%, #ffffff 0%, transparent 35%),
+        radial-gradient(ellipse at 85% 80%, #ffc9df 0%, transparent 40%),
+        linear-gradient(135deg, #ffe5ef, #fff0f5, #fbd4e4);
+    background-attachment: fixed;
     text-align: center;
-    padding: 30px 15px;
+    padding: 40px 15px;
+    min-height: 100vh;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
 }
 
+/* FLORES DECORATIVAS */
+
+.flower {
+    position: fixed;
+    font-size: 65px;
+    opacity: 0.55;
+    z-index: 0;
+    pointer-events: none;
+    animation: flutuar 5s ease-in-out infinite;
+}
+
+.flower1 {
+    top: 5%;
+    left: 5%;
+}
+
+.flower2 {
+    top: 15%;
+    right: 7%;
+    font-size: 85px;
+    animation-delay: 1s;
+}
+
+.flower3 {
+    bottom: 8%;
+    left: 8%;
+    font-size: 75px;
+    animation-delay: 2s;
+}
+
+.flower4 {
+    bottom: 12%;
+    right: 5%;
+    font-size: 60px;
+    animation-delay: 1.5s;
+}
+
+@keyframes flutuar {
+    0%, 100% {
+        transform: translateY(0px) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(8deg);
+    }
+}
+
+/* CARTÃO PRINCIPAL */
+
 .container {
-    background: white;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
     max-width: 450px;
     margin: auto;
-    padding: 25px;
-    border-radius: 15px;
+    padding: 30px;
+    border-radius: 25px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 10px 35px rgba(214, 51, 132, 0.15);
 }
+
+/* TÍTULO */
 
 h1 {
     color: #d63384;
+    font-size: 30px;
+    margin-bottom: 8px;
 }
+
+.subtitulo {
+    color: #b76b8d;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* DECORAÇÃO */
+
+.decoracao {
+    color: #e78caf;
+    font-size: 18px;
+    margin: 15px 0;
+}
+
+/* CAMPOS E SELETORES */
 
 input, select, button {
     width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #e5a3c1;
-    border-radius: 8px;
+    padding: 13px;
+    margin: 9px 0;
+    border: 1px solid #f2b5cf;
+    border-radius: 12px;
     box-sizing: border-box;
+    font-size: 14px;
+    outline: none;
 }
 
+input, select {
+    background: #fff8fb;
+    color: #8f4167;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #e75480;
+    box-shadow: 0 0 8px rgba(231, 84, 128, 0.2);
+    background: white;
+}
+
+/* BOTÃO */
+
 button {
-    background: #e75480;
+    background: linear-gradient(135deg, #f28bb5, #e75480);
     color: white;
     border: none;
     cursor: pointer;
     font-weight: bold;
+    font-size: 16px;
+    margin-top: 18px;
+    padding: 14px;
+    box-shadow: 0 5px 12px rgba(231, 84, 128, 0.25);
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #c2185b;
+    background: linear-gradient(135deg, #e75480, #c2185b);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(194, 24, 91, 0.25);
 }
+
+/* ÁREA DE RESULTADO */
 
 #resultado {
     color: #c2185b;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 22px;
+    padding: 15px;
+    background: #fff0f6;
+    border: 1px dashed #e78caf;
+    border-radius: 14px;
+    min-height: 25px;
 }
+
+/* ÁREAS DOS CÁLCULOS */
+
+#simples, #composta {
+    margin-top: 15px;
+}
+
+/* RODAPÉ */
+
+.rodape {
+    color: #b76b8d;
+    font-size: 12px;
+    margin-top: 22px;
+}
+
+/* CELULAR */
+
+@media (max-width: 500px) {
+
+    .container {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .flower {
+        font-size: 40px;
+    }
+
+}
+
 </style>
+
 </head>
 
 <body>
+
+<!-- FLORES DECORATIVAS -->
+
+<div class="flower flower1">🌸</div>
+<div class="flower flower2">🌸</div>
+<div class="flower flower3">🌺</div>
+<div class="flower flower4">🌸</div>
+
+
+<!-- CALCULADORA -->
 
 <div class="container">
 
 <h1>🌸 Regra de Três</h1>
 
+<p class="subtitulo">
+    ✿ Sua calculadora matemática kawaii ✿
+</p>
+
+<div class="decoracao">
+    ♡ ──────── ✿ ──────── ♡
+</div>
+
+<!-- ESCOLHA DO TIPO -->
+
 <select id="tipo" onchange="atualizar()">
-    <option value="simples">Regra de Três Simples</option>
-    <option value="composta">Regra de Três Composta</option>
+
+    <option value="simples">
+        Regra de Três Simples
+    </option>
+
+    <option value="composta">
+        Regra de Três Composta
+    </option>
+
 </select>
 
+
+<!-- REGRA DE TRÊS SIMPLES -->
+
 <div id="simples">
-    <input type="number" id="a" placeholder="Valor A">
-    <input type="number" id="b" placeholder="Valor B">
-    <input type="number" id="c" placeholder="Valor C">
+
+    <input type="number" id="a"
+    placeholder="Valor A">
+
+    <input type="number" id="b"
+    placeholder="Valor B">
+
+    <input type="number" id="c"
+    placeholder="Valor C">
 
     <select id="relacao">
-        <option value="direta">Diretamente proporcional</option>
-        <option value="inversa">Inversamente proporcional</option>
+
+        <option value="direta">
+            Diretamente proporcional
+        </option>
+
+        <option value="inversa">
+            Inversamente proporcional
+        </option>
+
     </select>
+
 </div>
+
+
+<!-- REGRA DE TRÊS COMPOSTA -->
 
 <div id="composta" hidden>
-    <input type="number" id="x" placeholder="Valor inicial de X">
 
-    <input type="number" id="g1" placeholder="Grandeza 1 - valor inicial">
-    <input type="number" id="g2" placeholder="Grandeza 1 - valor final">
+    <input type="number" id="x"
+    placeholder="Valor inicial de X">
+
+    <input type="number" id="g1"
+    placeholder="Grandeza 1 - valor inicial">
+
+    <input type="number" id="g2"
+    placeholder="Grandeza 1 - valor final">
 
     <select id="r1">
-        <option value="direta">Grandeza 1 - direta</option>
-        <option value="inversa">Grandeza 1 - inversa</option>
+
+        <option value="direta">
+            Grandeza 1 - direta
+        </option>
+
+        <option value="inversa">
+            Grandeza 1 - inversa
+        </option>
+
     </select>
 
-    <input type="number" id="g3" placeholder="Grandeza 2 - valor inicial">
-    <input type="number" id="g4" placeholder="Grandeza 2 - valor final">
+    <input type="number" id="g3"
+    placeholder="Grandeza 2 - valor inicial">
+
+    <input type="number" id="g4"
+    placeholder="Grandeza 2 - valor final">
 
     <select id="r2">
-        <option value="direta">Grandeza 2 - direta</option>
-        <option value="inversa">Grandeza 2 - inversa</option>
+
+        <option value="direta">
+            Grandeza 2 - direta
+        </option>
+
+        <option value="inversa">
+            Grandeza 2 - inversa
+        </option>
+
     </select>
+
 </div>
 
-<button onclick="calcular()">Calcular</button>
+
+<!-- BOTÃO -->
+
+<button onclick="calcular()">
+    🌸 Calcular Resultado
+</button>
+
+
+<!-- RESULTADO -->
 
 <div id="resultado"></div>
 
+<div class="rodape">
+    Feito com carinho ♡ Bons estudos!
 </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
 
 <script>
 
 function atualizar() {
+
     let tipo = document.getElementById("tipo").value;
 
-    document.getElementById("simples").hidden = tipo !== "simples";
-    document.getElementById("composta").hidden = tipo !== "composta";
+    document.getElementById("simples").hidden =
+        tipo !== "simples";
+
+    document.getElementById("composta").hidden =
+        tipo !== "composta";
 
     document.getElementById("resultado").innerHTML = "";
+
 }
+
 
 function calcular() {
 
     let tipo = document.getElementById("tipo").value;
+
     let resultado = 0;
+
 
     if (tipo === "simples") {
 
         let a = Number(document.getElementById("a").value);
+
         let b = Number(document.getElementById("b").value);
+
         let c = Number(document.getElementById("c").value);
 
         let relacao = document.getElementById("relacao").value;
 
-        if (document.getElementById("a").value === "" ||
+
+        if (
+            document.getElementById("a").value === "" ||
             document.getElementById("b").value === "" ||
-            document.getElementById("c").value === "") {
+            document.getElementById("c").value === ""
+        ) {
+
             alert("Preencha todos os valores!");
+
             return;
+
         }
 
+
         if (relacao === "direta") {
+
             if (a === 0) {
+
                 alert("O valor A não pode ser zero!");
+
                 return;
+
             }
+
             resultado = (b * c) / a;
+
         } else {
+
             if (b === 0) {
+
                 alert("O valor B não pode ser zero!");
+
                 return;
+
             }
+
             resultado = (a * c) / b;
+
         }
+
 
     } else {
 
         let x = Number(document.getElementById("x").value);
+
         let g1 = Number(document.getElementById("g1").value);
+
         let g2 = Number(document.getElementById("g2").value);
+
         let g3 = Number(document.getElementById("g3").value);
+
         let g4 = Number(document.getElementById("g4").value);
 
+
         let r1 = document.getElementById("r1").value;
+
         let r2 = document.getElementById("r2").value;
+
 
         let campos = ["x", "g1", "g2", "g3", "g4"];
 
-        if (campos.some(id => document.getElementById(id).value === "")) {
+
+        if (campos.some(id =>
+            document.getElementById(id).value === ""
+        )) {
+
             alert("Preencha todos os valores!");
+
             return;
+
         }
 
-        if (g1 === 0 || g3 === 0 || (r1 === "inversa" && g2 === 0) ||
-            (r2 === "inversa" && g4 === 0)) {
+
+        if (
+            g1 === 0 ||
+            g3 === 0 ||
+            (r1 === "inversa" && g2 === 0) ||
+            (r2 === "inversa" && g4 === 0)
+        ) {
+
             alert("Os valores utilizados como divisores não podem ser zero!");
+
             return;
+
         }
+
 
         resultado = x;
 
         resultado *= r1 === "direta" ? g2 / g1 : g1 / g2;
+
         resultado *= r2 === "direta" ? g4 / g3 : g3 / g4;
+
     }
 
+
     document.getElementById("resultado").innerHTML =
-        "Resultado: X = " + resultado.toLocaleString("pt-BR", {
+
+        "🌸 Resultado: X = " + resultado.toLocaleString("pt-BR", {
+
             maximumFractionDigits: 4
+
         });
+
 }
 
 </script>
 
 </body>
+
 </html>
